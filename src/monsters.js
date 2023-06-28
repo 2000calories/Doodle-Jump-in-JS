@@ -1,5 +1,5 @@
 var monsterChances = {
-    "smallRed": 25
+    "smallRed": 30
 };
 
 function spawnMonster() {
