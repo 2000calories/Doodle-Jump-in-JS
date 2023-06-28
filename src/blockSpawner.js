@@ -19,8 +19,9 @@ function blockSpawner() {
             blocks[i].monster = 0;
 
             if (blocks[i].type === 0) {
-                blocks[i].powerup = spawnPowerup();
-
+                if (i > 3) {
+                    blocks[i].powerup = spawnPowerup();
+                }
                 if (blocks[i].powerup === 0) {
                     blocks[i].monster = spawnMonster();
                 }
