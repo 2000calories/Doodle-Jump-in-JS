@@ -1,6 +1,8 @@
 var concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const { task, src, dest } = require('gulp');
+const modifyHTMLlinks = require("gulp-processhtml");
+const htmlmin = require("gulp-htmlmin");
 
 // Configuration
 var configuration = {
@@ -13,7 +15,16 @@ var configuration = {
 };
 
 exports.default = function () {
+    src('./Sprites/*/*')
+        .pipe(dest(configuration.paths.dist + "/Sprites"));
     src(configuration.paths.src.html)
+        .pipe(modifyHTMLlinks())
+        .pipe(
+            htmlmin({
+                collapseWhitespace: true,
+                removeComments: true
+            })
+        )
         .pipe(dest(configuration.paths.dist));
     src(['src/playerFrames.js', 'src/player.js', 'src/monsters.js', 'src/block.js',
         'src/powerups.js', 'src/blockType.js', 'src/blockSpawner.js', 'src/main.js', 'src/pose.js',])

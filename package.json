@@ -2,15 +2,21 @@
   "name": "doodle-jump-in-js",
   "version": "1.0.0",
   "description": "A version of Doodle Jump created in Javascript. Github Pages link: https://omackenzie.github.io/Doodle-Jump-in-JS/",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "config": {
+    "buildDir": "./dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
+    "gulp-processhtml": "^1.2.0",
     "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "gulp-htmlmin": "^5.0.1"
   }
 }

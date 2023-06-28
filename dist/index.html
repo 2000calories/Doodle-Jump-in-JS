@@ -1,19 +1,4 @@
-<html>
-
-<head>
-    <meta name="viewport"
-        content="initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1, width=device-width, height=device-height">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Easy Jump</title>
-    <!-- Require the peer dependencies of pose-detection. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
-    <!-- You must explicitly require a TF.js backend if you're not using the TF.js union bundle. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
-    <!-- pose-detection -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-    <style>
-        body {
+<html><head><meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,minimum-scale=1,width=device-width,height=device-height"><meta name="apple-mobile-web-app-capable" content="yes"><title>Easy Jump</title><script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script><script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script><script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script><script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script><style>body {
             margin: 0;
         }
 
@@ -58,18 +43,4 @@
 
         .hidden {
             display: none;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container" id="main-container">
-        <div class="hidden" id="loader-container">
-            Loading...
-        </div>
-        <video id="video" playsinline autoplay></video>
-    </div>
-
-</body>
-<script src="dist/index.js"></script>
-</html>
+        }</style></head><body><div class="container" id="main-container"><div class="hidden" id="loader-container">Loading...</div><video id="video" playsinline autoplay></video></div></body><script src="./index.js"></script></html>
