@@ -8,14 +8,14 @@ const htmlmin = require("gulp-htmlmin");
 var configuration = {
     paths: {
         src: {
-            html: './*.html',
+            html: './src/*.html',
         },
         dist: './dist'
     }
 };
 
 exports.default = function () {
-    src('./Sprites/*/*')
+    src('./Sprites/**/*.png')
         .pipe(dest(configuration.paths.dist + "/Sprites"));
     src(configuration.paths.src.html)
         .pipe(modifyHTMLlinks())
