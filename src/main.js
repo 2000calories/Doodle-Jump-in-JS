@@ -1,14 +1,16 @@
-var c = document.createElement("canvas");
-var ctx = c.getContext("2d");
+const c = document.createElement("canvas");
+c.id = "game-container";
+const ctx = c.getContext("2d");
 
-var screenWidth = 500;
-var screenHeight = 800;
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
 c.width = screenWidth;
 c.height = screenHeight;
 document.body.appendChild(c);
+// document.getElementById('game-container').appendChild(c);
 
-window.addEventListener('keydown',this.keydown,false);
-window.addEventListener('keyup',this.keyup,false);
+window.addEventListener('keydown', this.keydown, false);
+window.addEventListener('keyup', this.keyup, false);
 
 //Variables
 const gravity = 0.34;
@@ -20,71 +22,31 @@ var difficulty = 0;
 var lowestBlock = 0;
 var score = 0;
 var yDistanceTravelled = 0;
-
+let gameoverActionDone = false;
 var blocks = [];
 var powerups = [];
-
+let pause = true;
 //Time variables
 var fps = 60;
 var now;
 var then = Date.now();
-var interval = 1000/fps;
+var interval = 1000 / fps;
 var delta;
-
-function keydown(e) {
-    if (e.keyCode === 65) {
-        holdingLeftKey = true;
-    }   else if (e.keyCode === 68) {
-        holdingRightKey = true;
-    }
-
-    if (e.keyCode === 82 && dead) {
-        blocks = [];
-        lowestBlock = 0;
-        difficulty = 0;
-        score = 0;
-        yDistanceTravelled = 0;
-        player.springBootsDurability = 0;
-
-        blocks.push(new block);
-        blocks[0].x = 300;
-        blocks[0].y = 650;
-        blocks[0].monster = 0;
-        blocks[0].type = 0;
-        blocks[0].powerup = 0;
-
-        blockSpawner();
-        
-        player.x = 300;
-        player.y = 550;
-
-
-        dead = false;
-    }
-}
-
-function keyup(e) {
-    if (e.keyCode === 65) {
-        holdingLeftKey = false;
-    } else if (e.keyCode === 68) {
-        holdingRightKey = false;
-    }
-}
 
 function showScore() {
     if (yDistanceTravelled > score) {
-        score = Math.round(yDistanceTravelled);
+        score = Math.round(yDistanceTravelled / 100);
     }
 
     ctx.font = "36px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "left";
-    ctx.fillText(score, 15, 40); 
+    ctx.fillText(score, 15, 40);
 }
 
 blocks.push(new block);
-blocks[0].x = 300;
-blocks[0].y = 650;
+blocks[0].x = screenWidth / 2 - 50;
+blocks[0].y = screenHeight - 50;
 blocks[0].monster = 0;
 blocks[0].type = 0;
 blocks[0].powerup = 0;
@@ -97,19 +59,18 @@ function loop() {
     //This sets the FPS to 60
     now = Date.now();
     delta = now - then;
-     
-    if (delta > interval) {
-        var backgroundImage = new Image();
-        backgroundImage.src = "Sprites/background.png";
-        ctx.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight) 
 
+    if (delta > interval) {
+        ctx.clearRect(0, 0, screenWidth, screenHeight);
         for (var i = 0; i < blocks.length; i++) {
             if (blocks[i] !== 0) {
                 blocks[i].update();
                 blocks[i].draw();
             }
         }
-
+        if (pause) {
+            return;
+        }
         player.update();
         player.draw();
 
@@ -118,6 +79,7 @@ function loop() {
         ctx.fill();
         then = now - (delta % interval);
     }
+
 }
 
 loop();

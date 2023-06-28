@@ -8,8 +8,10 @@ function block() {
     this.monster;
     this.direction = "right";
     this.moveTime = 10;
+    this.playerId = 0;
+    this.randomId = generateRandomInteger(1, 25);
 
-    this.draw = function() {
+    this.draw = function () {
         if (this.type === "break") {
             ctx.fillStyle = "#876537";
         } else if (this.type === "sideways") {
@@ -21,23 +23,39 @@ function block() {
         if (this.monster === 0) {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         } else {
+            ctx.fillRect(this.x, this.y, this.width, this.height);
             monsterFunctions[this.monster].draw(this.x, this.y);
         }
 
-        if (this.powerup === "spring") {
-            ctx.fillStyle = "grey";
-            ctx.fillRect(this.x + 35, this.y - 10, 30, 10);
-        } else if (this.powerup === "springBoots") {
-            ctx.fillStyle = "blue";
-            ctx.fillRect(this.x + 30, this.y - 25, 15, 10);
-            ctx.fillRect(this.x + 53, this.y - 25, 15, 10);  
-            ctx.fillStyle = "grey";
-            ctx.fillRect(this.x + 30, this.y - 15, 15, 15);
-            ctx.fillRect(this.x + 53, this.y - 15, 15, 15);
+        switch (this.powerup) {
+            case 'spring':
+                ctx.drawImage(springImg, this.x + 35, this.y - 30, 30, 30);
+                break;
+            case 'springBoots':
+                ctx.drawImage(springBootsImg, this.x + 35, this.y - 30, 30, 30);
+                break;
+            case 'flyingHat':
+                ctx.drawImage(flyingHatImg, this.x + 35, this.y - 30, 40, 30);
+                break;
+            case 'rocket':
+                ctx.drawImage(rocketImg, this.x + 35, this.y - 30, 40, 30);
+                break;
+            case 'changePlayer':
+                while (this.randomId == playerId) {
+                    this.randomId = generateRandomInteger(1, 25);
+                }
+                this.playerId = this.randomId;
+                frameX = playerFrames["player " + this.playerId + ".png"].frame.x;
+                frameY = playerFrames["player " + this.playerId + ".png"].frame.y;
+                frameW = playerFrames["player " + this.playerId + ".png"].frame.w;
+                frameH = playerFrames["player " + this.playerId + ".png"].frame.h;
+                ctx.drawImage(playerImg, frameX, frameY, frameW, frameH, this.x + 35, this.y - 40, 40 * frameW / frameH, 40);
+                break;
+            default:
         }
     }
 
-    this.update = function() {
+    this.update = function () {
         if (this.type === "sideways") {
             if (this.x >= screenWidth - this.width) {
                 this.direction = "left";

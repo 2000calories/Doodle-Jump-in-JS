@@ -9,36 +9,40 @@ function blockSpawner() {
         if (i >= blocks.length) {
             blocks.push(new block);
 
-            if (blocks[i-1].type === "break") {
+            if (blocks[i - 1].type === "break") {
                 blocks[i].type = 0;
             } else {
                 blocks[i].type = spawnBlock();
             }
-    
+
             blocks[i].powerup = 0;
             blocks[i].monster = 0;
-    
+
             if (blocks[i].type === 0) {
                 blocks[i].powerup = spawnPowerup();
-    
+
                 if (blocks[i].powerup === 0) {
                     blocks[i].monster = spawnMonster();
                 }
             }
-    
-            blocks[i].x = Math.random()*(screenWidth - blocks[i].width);
-    
-            if (blocks[i].type === "break" || blocks[i-1].type === "break") {
-                blocks[i].y = (blocks[i-1].y) - (((Math.random()*(80 + (difficulty * 25))) + 30) / 2);
+
+            blocks[i].x = Math.random() * (screenWidth - blocks[i].width);
+
+            if (blocks[i].type === "break" || blocks[i - 1].type === "break") {
+                blocks[i].y = (blocks[i - 1].y) - (((Math.random() * (100 + (difficulty * 25))) + 30) / 2);
             } else if (blocks[i].monster !== 0) {
-                blocks[i].y = (blocks[i-1].y) - ((Math.random()*(80 + (difficulty*25)))+50);
-            }  else if (blocks[i-1].monster !== 0) {
-                blocks[i].y = (blocks[i-1].y) - ((Math.random()*(80 + (difficulty*25)))+50);
+                blocks[i].y = (blocks[i - 1].y) - ((Math.random() * (100 + (difficulty * 25))) + 50);
+            } else if (blocks[i - 1].monster !== 0) {
+                blocks[i].y = (blocks[i - 1].y) - ((Math.random() * (100 + (difficulty * 25))) + 50);
             }
             else {
-                blocks[i].y = (blocks[i-1].y) - ((Math.random()*(80 + (difficulty*25)))+30);
+                blocks[i].y = (blocks[i - 1].y) - ((Math.random() * (100 + (difficulty * 25))) + 80);
             }
-        } 
+            // jump distance is ~256
+            if (blocks[i - 1].y - blocks[i].y > 250) {
+                blocks[i].y = blocks[i - 1].y - 250;
+            }
+        }
     }
 
     //Remove blocks that are below us now
