@@ -7,7 +7,7 @@ function spawnMonster() {
         monsterChances["smallRed"] = 30;
         return "smallRed";
     } else {
-        monsterChances["smallRed"] *= 0.98;
+        monsterChances["smallRed"] *= 0.99;
     }
     return 0;
 }

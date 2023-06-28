@@ -32,7 +32,7 @@ function block() {
                 ctx.drawImage(springImg, this.x + 35, this.y - 30, 30, 30);
                 break;
             case 'springBoots':
-                ctx.drawImage(springBootsImg, this.x + 35, this.y - 30, 30, 30);
+                ctx.drawImage(springBootsImg, this.x + 35, this.y - 40, 40, 40);
                 break;
             case 'flyingHat':
                 ctx.drawImage(flyingHatImg, this.x + 35, this.y - 30, 40, 30);
