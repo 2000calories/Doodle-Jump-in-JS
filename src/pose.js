@@ -3,16 +3,16 @@ window.onload = function () {
     const video = document.getElementById('video');
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
+    const windowAspectRatio = windowHeight / windowWidth;
 
     document.getElementById('main-container').style.width = windowWidth + "px";
     document.getElementById('main-container').style.height = windowHeight + "px";
-
     const getCameraSelection = async () => {
         const updatedConstraints = {
             video: {
                 // deviceId: deviceId,
                 facingMode: "user",
-                // width: { min: windowWidth }, height: { min: windowHeight },
+                // width: 480, height: 640,
                 frameRate: { max: 12 },
             }
         };
@@ -61,9 +61,16 @@ window.onload = function () {
 
                 // convert video x to game canvas x 
                 if (!gameoverActionDone) {
-                    const ratio = windowHeight / video.videoHeight;
-                    const player_x = windowWidth - (avg_x * ratio - video.videoWidth / 2);
-                    player.x = player_x;
+                    const videoAspectRatio = video.videoHeight / video.videoWidth;
+                    if (windowAspectRatio >= videoAspectRatio) {
+                        const ratio = windowHeight / video.videoHeight;
+                        const player_x = windowWidth - avg_x * ratio + (video.videoWidth * ratio - windowWidth) / 2;
+                        player.x = player_x - player.width / 2;
+                    } else {
+                        const ratio = windowWidth / video.videoWidth;
+                        const player_x = windowWidth - avg_x * ratio;
+                        player.x = player_x - player.width / 2;
+                    }
                 }
             }
         }
