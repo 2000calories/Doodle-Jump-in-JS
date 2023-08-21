@@ -72,7 +72,7 @@ var player = new function () {
                     console.error(error);
                 }
                 setTimeout(function () {
-                    // window.location.reload();
+                    window.location.reload();
                 }, 3000);
                 gameoverActionDone = true;
             }
