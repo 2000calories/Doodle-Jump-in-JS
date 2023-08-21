@@ -13,7 +13,7 @@ window.addEventListener('keydown', this.keydown, false);
 window.addEventListener('keyup', this.keyup, false);
 
 //Variables
-const gravity = 0.34;
+let gravity = 0.8;
 var holdingLeftKey = false;
 var holdingRightKey = false;
 var keycode;
@@ -27,7 +27,7 @@ var blocks = [];
 var powerups = [];
 let pause = true;
 //Time variables
-var fps = 60;
+var fps = 30;
 var now;
 var then = Date.now();
 var interval = 1000 / fps;

@@ -13,9 +13,10 @@ function spawnPowerup() {
         if (Math.round(Math.random() * powerupChances[powerup]) === 0) {
             powerupChances[powerup] = originPowerupChances[powerup];
             return powerup;
-        } else {
-            powerupChances[powerup] *= 0.99;
         }
+        // else {
+        //     powerupChances[powerup] *= 0.99;
+        // }
     }
     return 0;
 }

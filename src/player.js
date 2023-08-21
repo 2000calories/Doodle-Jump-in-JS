@@ -6,9 +6,11 @@ function generateRandomInteger(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1))
 }
 const playerImg = new Image();
+
 playerImg.src = "Sprites/players.png";
 let playerId = generateRandomInteger(1, 25);
 var player = new function () {
+    let gravity = 0.9;
     this.x = window.innerWidth / 2;
     this.y = window.innerHeight - 200;
     this.img = playerImg;
@@ -24,10 +26,10 @@ var player = new function () {
     this.springBootsDurability = 0;
     this.flyingHatDurability = 0;
     this.rocketDurability = 0;
-    this.flyingHatySpeed = -40;
-    this.rocketySpeed = -60;
-    this.flyingHatDistance = 0.5 * this.flyingHatySpeed * this.flyingHatySpeed / 0.34;
-    this.rocketDistance = 0.5 * this.rocketySpeed * this.rocketySpeed / 0.34;
+    this.flyingHatySpeed = - Math.sqrt(40 * 40 * gravity / 0.34);
+    this.rocketySpeed = - Math.sqrt(60 * 60 * gravity / 0.34);
+    this.flyingHatDistance = 0.5 * this.flyingHatySpeed * this.flyingHatySpeed / gravity;
+    this.rocketDistance = 0.5 * this.rocketySpeed * this.rocketySpeed / gravity;
     this.direction = "left";
     this.inPowerup = false;
 
@@ -70,7 +72,7 @@ var player = new function () {
                     console.error(error);
                 }
                 setTimeout(function () {
-                    window.location.reload();
+                    // window.location.reload();
                 }, 3000);
                 gameoverActionDone = true;
             }
@@ -80,8 +82,8 @@ var player = new function () {
         //Check for jump
         for (var i = 0; i < blocks.length; i++) {
             if (this.ySpeed >= 0) {
-                if (this.x >= blocks[i].x - this.width + 15 && this.x <= blocks[i].x + blocks[i].width - 15 &&
-                    this.y >= blocks[i].y - this.height && this.y <= blocks[i].y + blocks[i].height - this.height) {
+                if (this.x >= blocks[i].x - this.width + 10 && this.x <= blocks[i].x + blocks[i].width - 10 &&
+                    this.y >= blocks[i].y - this.height - 8 && this.y <= blocks[i].y + blocks[i].height + 8 - this.height) {
                     if (["spring", "springBoots", "flyingHat", "rocket"].includes(blocks[i].powerup)) {
                         this.inPowerup = true;
                     } else {
@@ -90,6 +92,7 @@ var player = new function () {
                     if (blocks[i].type === "break") {
                         this.jump(blocks[i].powerup, blocks[i].type);
                         blocks[i] = 0;
+                        console.log('break');
                     } else if (blocks[i].monster !== 0) {
                         this.jump(blocks[i].powerup, blocks[i].type);
                         blocks[i] = 0;
@@ -119,7 +122,7 @@ var player = new function () {
 
         for (var i = blocks.length - 1; i > 0; i--) {
             if (blocks[i].y > screenHeight) {
-                lowestBlock = i + 1;
+                lowestBlock = i;
                 break;
             }
         }
@@ -129,7 +132,7 @@ var player = new function () {
         }
 
         if (lowestBlock >= 45) {
-            if (difficulty < 6) {
+            if (difficulty < 8) {
                 difficulty += 1;
             }
             blockSpawner();
@@ -137,7 +140,8 @@ var player = new function () {
     }
 
     this.jump = function (powerup, type) {
-        this.ySpeed = -13.2;
+        // base gravity is 0.34
+        this.ySpeed = - Math.sqrt(13.3 * 13.3 * gravity / 0.34);
 
         // powerup priority changePlayer > rocket > flyingHat > springBoots
         if (powerup === "changePlayer") {
@@ -164,18 +168,18 @@ var player = new function () {
 
         if (type === 0) {
             if (powerup === "spring") {
-                this.ySpeed = -20;
+                this.ySpeed = -Math.sqrt(20 * 20 * gravity / 0.34);
             }
             if (powerup === "flyingHat") {
-                this.ySpeed = -40;
+                this.ySpeed = this.flyingHatySpeed;
             }
             if (powerup === "rocket") {
-                this.ySpeed = -60;
+                this.ySpeed = this.rocketySpeed;
             }
         }
 
         if (this.springBootsDurability !== 0) {
-            this.ySpeed = -20;
+            this.ySpeed = - Math.sqrt(20 * 20 * gravity / 0.34);
             this.springBootsDurability -= 1;
         }
     }

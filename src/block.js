@@ -1,8 +1,8 @@
 function block() {
     this.x;
     this.y;
-    this.width = 100;
-    this.height = 15;
+    this.width = Math.min(window.innerWidth * 0.3, 100);
+    this.height = 20;
     this.powerup;
     this.type;
     this.monster;
@@ -64,9 +64,9 @@ function block() {
             }
 
             if (this.direction === "right") {
-                this.x += 2.5;
+                this.x += 2.5 * Math.sqrt(difficulty + 1);
             } else {
-                this.x -= 2.5;
+                this.x -= 2.5 * Math.sqrt(difficulty + 1);
             }
         }
 
