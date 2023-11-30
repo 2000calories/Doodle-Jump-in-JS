@@ -88,12 +88,12 @@ window.onload = function () {
                 if (startTime == null) {
                     startTime = Date.now();
                 }
-                try {
-                    window.flutter_inappwebview
-                        .callHandler('gameState', 'start');
-                } catch (error) {
-                    console.error(error);
-                }
+                // try {
+                //     window.flutter_inappwebview
+                //         .callHandler('gameState', 'start');
+                // } catch (error) {
+                //     console.error(error);
+                // }
             }
         }
         const detectTime = Date.now() - start;
