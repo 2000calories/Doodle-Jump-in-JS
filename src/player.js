@@ -71,9 +71,9 @@ var player = new function () {
                 } catch (error) {
                     console.error(error);
                 }
-                // setTimeout(function () {
-                //     window.location.reload();
-                // }, 3000);
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000);
                 gameoverActionDone = true;
             }
 
