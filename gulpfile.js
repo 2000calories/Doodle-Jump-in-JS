@@ -17,7 +17,7 @@ var configuration = {
 function js() {
     src(['src/playerFrames.js', 'src/player.js', 'src/monsters.js', 'src/block.js',
         'src/powerups.js', 'src/blockType.js', 'src/blockSpawner.js', 'src/main.js', 'src/pose.js',])
-        .pipe(uglify())
+        // .pipe(uglify())
         // So use gulp-rename to change the extension
         .pipe(concat('index.js'))
         .pipe(dest('dist/'));
