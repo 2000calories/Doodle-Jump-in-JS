@@ -761,12 +761,12 @@ window.onload = function () {
         await getCameraSelection();
         // finish loading
         document.getElementById('loader-container').classList.toggle('hidden');
-        try {
-            window.flutter_inappwebview
-                .callHandler('gameState', 'loaded');
-        } catch (error) {
+        // try {
+        //     window.flutter_inappwebview
+        //         .callHandler('gameState', 'loaded');
+        // } catch (error) {
 
-        }
+        // }
 
     }
     async function poseDetect() {
