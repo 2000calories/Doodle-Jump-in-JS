@@ -87,6 +87,7 @@ window.onload = function () {
                 pause = false;
                 if (startTime == null) {
                     startTime = Date.now();
+                    window.startTime = startTime;
                 }
                 // try {
                 //     window.flutter_inappwebview

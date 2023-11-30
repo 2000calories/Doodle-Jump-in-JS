@@ -67,13 +67,13 @@ var player = new function () {
                 try {
                     // return score to flutter
                     window.flutter_inappwebview
-                        .callHandler('returnScore', score, startTime, endTime);
+                        .callHandler('returnScore', score, window.startTime, endTime);
                 } catch (error) {
                     console.error(error);
                 }
-                setTimeout(function () {
-                    window.location.reload();
-                }, 3000);
+                // setTimeout(function () {
+                //     window.location.reload();
+                // }, 3000);
                 gameoverActionDone = true;
             }
 
